@@ -1,0 +1,21 @@
+server:
+  port: 8080
+  servlet:
+     context-path: /api/project
+spring:
+  application:
+     name: sic-project-service
+
+  datasource:
+     driver-class-name: org.postgresql.Driver
+     url: ${PROJECT_SPRING_DATASOURCE_URL}
+     username: ${PROJECT_SPRING_DATASOURCE_USER}
+     password: ${PROJECT_SPRING_DATASOURCE_PASSWORD}
+  jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+      database: postgresql
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      properties:
+        hibernate.default_schema: public

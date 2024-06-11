@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/payment
+
+spring:
+  application:
+    name: sic-payment-service
+  data:
+    mongodb:
+      uri: ${PAYMENT_SPRING_MONGODB_URI}
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${PAYMENT_SPRING_DATASOURCE_URL}
+    username: ${PAYMENT_SPRING_DATASOURCE_USER}
+    password: ${PAYMENT_SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate.default_schema: sic_staging
+merchant:
+  merchant-key: ${MERCHANT_KEY_9PAY:sample}
+  merchant-secret-key: ${MERCHANT_SECRET_KEY_9PAY:sample}
+  endpoint: ${ENDPOINT_9PAY:https://sand-payment.9pay.vn}

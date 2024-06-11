@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # Payment service
+  payment_service:
+    image: payment_service
+    container_name: payment_service
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: payment_service
+    restart: unless-stopped
+    ports:
+      - "8180:8080"
+    environment:
+      PAYMENT_SPRING_MONGODB_URI: $PAYMENT_SPRING_MONGODB_URI
+      PAYMENT_SPRING_DATASOURCE_URL: $PAYMENT_SPRING_DATASOURCE_URL
+      PAYMENT_SPRING_DATASOURCE_USER: $PAYMENT_SPRING_DATASOURCE_USER
+      PAYMENT_SPRING_DATASOURCE_PASSWORD: $PAYMENT_SPRING_DATASOURCE_PASSWORD
+      MERCHANT_KEY_9PAY: $MERCHANT_KEY_9PAY
+      MERCHANT_SECRET_KEY_9PAY: $MERCHANT_SECRET_KEY_9PAY
+      ENPOINT_9PAY: https://sand-payment.9pay.vn
+    networks:
+      - app-network
+  # Project service
+  project_service:
+    image: project_service
+    container_name: project_service
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: project_service
+    restart: unless-stopped
+    ports:
+      - "8280:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
